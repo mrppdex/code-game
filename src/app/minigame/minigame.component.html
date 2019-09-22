@@ -1,0 +1,35 @@
+<div *ngIf="timeRunning && currentQuestion; else end">
+  <mat-progress-bar   mode="determinate" [value]="timer*100/timeAllowed"></mat-progress-bar>
+  <div  style="margin:20px;text-align:center;font-size:5rem" >
+    <mat-card style="margin:3vw;" class="mat-elevation-z5">
+      <mat-card-title>
+        <h2>{{ currentQuestion.name }}</h2>
+      </mat-card-title>
+      <mat-card-footer style="font-size: 17px;">
+        {{ currentQuestion.code }}
+      </mat-card-footer>
+    </mat-card>
+    <mat-button-toggle-group [vertical]="isVertical" (click)="clicked(group.value);group.checked=false;"  #group="matButtonToggleGroup" [disabled]="!timeRunning" >
+      <mat-button-toggle matRipple [matRippleColor]="currentQuestion.choices[0]==currentQuestion.code?'green':'red'" class="toggle-button" [value]="currentQuestion.choices[0]">
+        {{ currentQuestion.choices[0] }}
+      </mat-button-toggle>
+      <mat-button-toggle matRipple [matRippleColor]="currentQuestion.choices[1]==currentQuestion.code?'green':'red'" class="toggle-button" [value]="currentQuestion.choices[1]">
+        {{ currentQuestion.choices[1] }}
+      </mat-button-toggle>
+      <mat-button-toggle matRipple [matRippleColor]="currentQuestion.choices[2]==currentQuestion.code?'green':'red'" class="toggle-button" [value]="currentQuestion.choices[2]">
+        {{ currentQuestion.choices[2] }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+
+<ng-template #end>
+  <p class="result" *ngIf="finalResult>0">{{ finalResult }} </p>
+  <div style="text-align:center; font-size: 5em;">
+    <button mat-raised-button (click)="restart()">{{ restartButtonLabel }}</button>
+  </div>
+</ng-template>
+
+
+
+

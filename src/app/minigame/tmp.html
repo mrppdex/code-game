@@ -1,0 +1,18 @@
+<div *ngIf="timeRunning; else end">
+  <mat-progress-bar   mode="determinate" [value]="timer*100/timeAllowed"></mat-progress-bar>
+  <div  style="margin:20px;text-align:center;font-size:5em">
+    <mat-button-toggle-group (click)="clicked(group.value);group.checked=false;"  #group="matButtonToggleGroup" [disabled]="!timeRunning">
+      <mat-button-toggle #b1 value="1">1</mat-button-toggle>
+      <mat-button-toggle #b2 value="2">2</mat-button-toggle>
+      <mat-button-toggle #b3 value="3">3</mat-button-toggle>
+    </mat-button-toggle-group>
+    <button mat-raised-button (click)="triggerEnd()">Force Finish</button>
+  </div>
+</div>
+
+<ng-template #end>
+  <p class="result" *ngIf="finalResult>0">{{ finalResult }} </p>
+  <div style="text-align:center">
+    <button mat-raised-button (click)="restart()">{{ restartButtonLabel }}</button>
+  </div>
+</ng-template>
